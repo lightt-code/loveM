@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>i love you</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{
+  background:radial-gradient(circle at 50% 48%,#76285f 0,#612351 48%,#3d1949 100%);
+  color:#fff;font-family:Arial,sans-serif
+}
+#h{position:fixed;inset:0}
+.l{
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%) scale(.75);
+  white-space:nowrap;
+  font-size:clamp(9px,2.15vw,16px);
+  font-weight:700;letter-spacing:.1px;
+  opacity:0;
+  filter:blur(.35px);
+  text-shadow:0 0 5px #ff8fbd,0 0 10px #d94388;
+  animation:a 1.25s ease-out forwards
+}
+@keyframes a{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.7)}
+  100%{opacity:.82;transform:translate(-50%,-50%) scale(1)}
+}
+#m{
+  position:fixed;left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  font-size:clamp(58px,16vw,115px);
+  font-weight:900;line-height:1;
+  opacity:0;
+  text-shadow:0 0 9px #fff,0 0 28px #ff86bd,0 0 55px #e83f92;
+  animation:show 1.7s ease-out 6.2s forwards
+}
+@keyframes show{to{opacity:1}}
+#play{
+  position:fixed;left:50%;bottom:7%;
+  transform:translateX(-50%);
+  display:none;border:0;border-radius:99px;
+  padding:12px 22px;background:#fff;color:#8a275d;
+  font-weight:700;font-size:15px
+}
+</style>
+</head>
+<body>
+<div id="h"></div><div id="m">M</div>
+<audio id="music" src="music.m4a" loop preload="auto"></audio>
+<button id="play">♥ включить музыку</button>
+<script>
+const box=document.getElementById('h'), total=92;
+for(let i=0;i<total;i++){
+  const t=Math.PI*2*i/total;
+  const x=16*Math.sin(t)**3;
+  const y=-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));
+  const e=document.createElement('span');
+  e.className='l';e.textContent='i love you';
+  e.style.left=(50+x*2.25)+'%';
+  e.style.top=(50+y*2.25)+'%';
+  e.style.animationDelay=(i*.065)+'s';
+  box.appendChild(e);
+}
+const music=document.getElementById('music'),play=document.getElementById('play');
+music.play().catch(()=>play.style.display='block');
+play.onclick=()=>{music.play();play.style.display='none'};
+</script>
+</body>
+</html>
